@@ -1,1 +1,1288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Heroes - SAEB Lab</title>
+  <meta
+    name="description"
+    content="Landing page institucional da Math Heroes para captação de recursos, tese de investimento e desenvolvimento da plataforma com apoio da Lei do Bem."
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 
+    :root {
+      --bg: #1a2238;
+      --surface: #22304d;
+      --surface-soft: #2a3a5c;
+      --text: #ffffff;
+      --muted: #cfdfff;
+      --line: #3a7bd5;
+      --accent: #5ab0ff;
+      --accent-strong: #203a63;
+      --accent-2: #3a7bd5;
+      --accent-3: #b3daff;
+      --shadow: 0 0 25px rgba(58, 123, 213, 0.55), 0 0 50px rgba(31, 75, 153, 0.35);
+      --radius: 22px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background-color: #1a2238;
+      background:
+        radial-gradient(circle at top left, rgba(58, 123, 213, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(90, 176, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #1a2238 0%, #172033 55%, #111827 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(900px, calc(100% - 32px));
+      margin: 96px auto 42px;
+      padding: 30px;
+      border-radius: 15px;
+      background: #22304d;
+      border: 1px solid rgba(90, 176, 255, 0.25);
+      box-shadow: 0 0 25px rgba(58, 123, 213, 0.6), 0 0 50px rgba(31, 75, 153, 0.35);
+    }
+
+    .floating-menu {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(900px, calc(100% - 32px));
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(34, 48, 77, 0.88);
+      border: 1px solid rgba(90, 176, 255, 0.35);
+      box-shadow: 0 0 18px rgba(58, 123, 213, 0.35) inset, 0 0 26px rgba(58, 123, 213, 0.18);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .menu-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid #5ab0ff;
+      background: #2f4d80;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(90, 176, 255, 0.35);
+    }
+
+    .menu-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .menu-indicator {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      height: 34px;
+      width: 96px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(90, 176, 255, 0.32) 0%, rgba(58, 123, 213, 0.42) 100%);
+      border: 1px solid rgba(130, 196, 255, 0.75);
+      box-shadow: 0 0 14px rgba(130, 196, 255, 0.45);
+      pointer-events: none;
+      transition: left 260ms ease, width 260ms ease, opacity 180ms ease;
+      z-index: 0;
+    }
+
+    .floating-menu .tab {
+      background: #1f2e4a;
+      border-color: #3a7bd5;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(58, 123, 213, 0.45);
+      position: relative;
+      z-index: 1;
+    }
+
+    .floating-menu .tab:hover {
+      border-color: #5ab0ff;
+      background: #2f4d80;
+      box-shadow: 0 0 14px rgba(90, 176, 255, 0.55);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #1a2238 0%, #203a63 48%, #22304d 100%);
+      color: #fff;
+      border: 1px solid rgba(90, 176, 255, 0.28);
+      box-shadow: 0 0 20px rgba(58, 123, 213, 0.28) inset;
+      padding: 28px;
+      min-height: 320px;
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(0px);
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    .hero::before {
+      width: 280px;
+      height: 280px;
+      right: -80px;
+      top: -70px;
+      background: radial-gradient(circle at center, rgba(90, 176, 255, 0.30), transparent 62%);
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      left: -60px;
+      bottom: -80px;
+      background: radial-gradient(circle at center, rgba(129, 212, 255, 0.22), transparent 62%);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-copy {
+      margin-top: 34px;
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(58, 123, 213, 0.16);
+      border: 1px solid rgba(90, 176, 255, 0.28);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.9rem, 3.3vw, 3.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      text-shadow: 0 0 10px rgba(90, 176, 255, 0.65), 0 0 20px rgba(58, 123, 213, 0.45);
+      text-wrap: balance;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      margin: 18px 0 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid #5ab0ff;
+      background: #3a7bd5;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(90, 176, 255, 0.45);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #5ab0ff 0%, #3a7bd5 100%);
+      color: #1a2238;
+      border-color: transparent;
+      box-shadow: 0 0 12px rgba(90, 176, 255, 0.55);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: #5ab0ff;
+      color: #1a2238;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    .metric strong {
+      display: block;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 18px;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #1f2e4a;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .tab:hover {
+      transform: translateY(-1px);
+      border-color: #5ab0ff;
+    }
+
+    .tab.active {
+      border-color: #82c4ff;
+      background: transparent;
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(130, 196, 255, 0.3);
+    }
+
+    .section {
+      margin-top: 18px;
+      scroll-margin-top: 120px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: #22304d;
+      border: 2px solid rgba(58, 123, 213, 0.75);
+      box-shadow: 0 0 20px rgba(58, 123, 213, 0.28) inset;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section p.lead {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 80ch;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
+      border-radius: var(--radius-sm);
+      background: #1f2e4a;
+      border: 1px solid rgba(90, 176, 255, 0.4);
+      padding: 18px;
+      box-shadow: 0 0 12px rgba(58, 123, 213, 0.2);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 0.96rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .curriculum {
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .curriculum-header {
+      padding: 18px;
+      background: linear-gradient(180deg, #2a3a5c 0%, #22304d 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .bar-group {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      background: var(--surface);
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1.5fr 0.6fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .bar-label {
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #16233d;
+      overflow: hidden;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #1a2740;
+      border: 1px solid var(--line);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .levels {
+      margin-top: 18px;
+    }
+
+    .level {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #2a3a5c 0%, #22304d 100%);
+      box-shadow: 0 0 12px rgba(58, 123, 213, 0.2);
+    }
+
+    .level-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .level-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(90, 176, 255, 0.18);
+      border: 1px solid rgba(130, 196, 255, 0.35);
+      font-size: 0.95rem;
+    }
+
+    .level-range {
+      font-weight: 700;
+      color: #d8e8ff;
+      font-size: 0.84rem;
+      letter-spacing: 0.01em;
+    }
+
+    .level h3 {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .badge {
+      width: fit-content;
+      min-width: 72px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 0.83rem;
+    }
+
+    .bronze { background: linear-gradient(135deg, #2b6bcc, #3a7bd5); }
+    .prata { background: linear-gradient(135deg, #94a3b8, #dbe5f3); color: #132134; }
+    .ouro { background: linear-gradient(135deg, #2563eb, #60a5fa); color: #eef6ff; }
+    .diamante { background: linear-gradient(135deg, #0f172a, #2563eb); }
+    .elite { background: linear-gradient(135deg, #0f2f6a, #06b6d4); }
+
+    .level p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .step {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(90, 176, 255, 0.4);
+      background: #1f2e4a;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-weight: 800;
+      background: #3a7bd5;
+      color: #ffffff;
+    }
+
+    .architecture {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.15fr 0.85fr;
+      margin-top: 18px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stack-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(90, 176, 255, 0.22);
+      background: linear-gradient(180deg, #2a3a5c 0%, #1f2e4a 100%);
+    }
+
+    .stack-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stack-item span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+    }
+
+    .note {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #203a63 0%, #1f2e4a 100%);
+      border: 1px solid rgba(90, 176, 255, 0.24);
+    }
+
+    .note h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .note p {
+      margin: 0;
+      color: #d8e8ff;
+      line-height: 1.6;
+    }
+
+    .cta {
+      margin-top: 18px;
+      border-radius: 26px;
+      padding: 26px;
+      color: #fff;
+      background: linear-gradient(135deg, #1a2238 0%, #203a63 48%, #22304d 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.6rem, 2vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .cta p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+    }
+
+    .cta .button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      padding: 18px 0 8px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 980px) {
+      .page {
+        width: min(100% - 24px, var(--max));
+        padding: 22px;
+      }
+
+      .floating-menu {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .hero-meta,
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .architecture,
+      .cta-grid,
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .level {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .floating-menu {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(100% - 18px, var(--max));
+        justify-content: flex-start;
+        align-items: center;
+        max-height: 56px;
+        padding: 10px;
+        transition: max-height 220ms ease;
+      }
+
+      .floating-menu.open {
+        max-height: 320px;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .menu-links {
+        display: none;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding-top: 8px;
+      }
+
+      .floating-menu.open .menu-links {
+        display: grid;
+      }
+
+      .menu-indicator {
+        display: none;
+      }
+
+      .page {
+        width: min(100% - 18px, var(--max));
+        margin-top: 86px;
+        padding: 20px;
+      }
+
+      .hero-actions .button,
+      .cta .button {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 20px;
+        min-height: auto;
+        border-radius: 24px;
+      }
+
+      .hero-meta,
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .architecture,
+      .cta-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        line-height: 1.02;
+      }
+
+      .tab {
+        font-size: 0.76rem;
+        min-height: 34px;
+        padding: 0 10px;
+        justify-content: center;
+      }
+
+      .section,
+      .cta {
+        padding: 18px;
+      }
+
+      .section {
+        scroll-margin-top: 88px;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="brand-mark">⚡</div>
+          <div>
+            Math Heroes
+            <div style="font-size: 0.92rem; font-weight: 600; opacity: 0.88; margin-top: 2px;">Tese de inovação educacional para captação e escala</div>
+          </div>
+        </div>
+        <a class="button" href="#investimento">Ver tese de investimento</a>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">Lei do Bem • captação de recursos • inovação em educação • SAEB / INEP</div>
+        <h1 id="hero-title">Uma plataforma de inovação educacional pronta para captar recursos e escalar.</h1>
+        <p>
+          O projeto foi estruturado como uma tese de desenvolvimento gradual para investidores, considerando incentivos
+          da Lei do Bem, validação pedagógica e expansão por módulos a partir de um tópico inicial do 9º ano.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#investimento">Conhecer a tese</a>
+          <a class="button" href="#cronograma">Ver cronograma</a>
+          <a class="button" href="#retorno">Ver potencial de retorno</a>
+        </div>
+      </div>
+
+      <div class="hero-meta" aria-label="Resumo da plataforma">
+        <div class="metric"><strong>9º</strong><span>ano como ponto de partida para validar o MVP</span></div>
+        <div class="metric"><strong>Lei do Bem</strong><span>base para enquadramento em inovação e incentivo fiscal</span></div>
+        <div class="metric"><strong>Investidor</strong><span>perfil-alvo: apoiador estratégico e de crescimento</span></div>
+        <div class="metric"><strong>Escala</strong><span>expansão por módulos após testes e validação</span></div>
+      </div>
+    </section>
+
+    <nav class="floating-menu" aria-label="Navegação de seções">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-links">Menu</button>
+      <span class="menu-indicator" aria-hidden="true"></span>
+      <div class="menu-links" id="menu-links">
+        <a class="tab" href="#visao">◎ Visão Geral</a>
+        <a class="tab" href="#investimento">◇ Investimento</a>
+        <a class="tab" href="#conteudo">▣ Conteúdo SAEB</a>
+        <a class="tab" href="#escalas">◉ Escalas</a>
+        <a class="tab" href="#gamificacao">✦ Gamificação</a>
+        <a class="tab" href="#ia">◌ IA Pedagógica</a>
+        <a class="tab" href="#tecnologia">▦ Tecnologia</a>
+        <a class="tab" href="#cronograma">◷ Cronograma</a>
+        <a class="tab" href="#retorno">⬈ Retorno</a>
+      </div>
+    </nav>
+
+    <section class="section" id="visao">
+      <h2>◎ Visão geral da tese</h2>
+      <p class="lead">
+        A proposta é estruturar uma plataforma de aprendizagem adaptativa como ativo de inovação educacional,
+        combinando conteúdo curricular, diagnóstico, recomendação adaptativa e feedback pedagógico em uma jornada
+        capaz de gerar valor educacional, tecnológico e econômico.
+      </p>
+
+      <div class="grid three" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Captação estruturada</h3>
+          <p>O projeto foi organizado para comunicação com investidores, parceiros e mecanismos de incentivo à inovação.</p>
+        </div>
+        <div class="card">
+          <h3>Lei do Bem</h3>
+          <p>A base técnica pode ser apresentada como desenvolvimento de inovação aplicável, com potencial de enquadramento em incentivos fiscais.</p>
+        </div>
+        <div class="card">
+          <h3>Escala orientada por dados</h3>
+          <p>As próximas fases crescem com base em evidências de uso, retenção, impacto pedagógico e abertura de novos módulos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="investimento">
+      <h2>◇ Tese de investimento</h2>
+      <p class="lead">
+        O projeto parte de um produto educacional com potencial de escalabilidade, apoiado por tecnologia própria,
+        validação pedagógica e uma narrativa clara para investidores interessados em impacto, inovação e mercado B2B/B2G.
+      </p>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Problema que resolve</h3>
+          <p>Baixa personalização do ensino, dificuldade de diagnóstico contínuo e necessidade de maior eficiência na aprendizagem matemática.</p>
+        </div>
+        <div class="card">
+          <h3>Oportunidade de mercado</h3>
+          <p>Escolas, redes privadas, iniciativas públicas, edtechs e parceiros institucionais buscam soluções com evidência pedagógica e escala tecnológica.</p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Ativo de inovação</h3>
+          <p>Motor adaptativo, IA pedagógica, banco inteligente de itens e analytics compõem um núcleo tecnológico com valor de desenvolvimento contínuo.</p>
+        </div>
+        <div class="card">
+          <h3>Modelo de crescimento</h3>
+          <p>Começa com um módulo validado, amplia para novas habilidades, expande anos escolares e abre caminho para parcerias e licenciamento.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="conteudo">
+      <h2>▣ Base curricular — Matemática 9º ano</h2>
+      <p class="lead">
+        O primeiro bloco curricular é o ponto de partida da validação comercial e pedagógica. Ele reduz risco, gera
+        evidência de uso e demonstra a capacidade da plataforma de entregar valor desde o MVP.
+      </p>
+
+      <div class="curriculum">
+        <div class="curriculum-header">
+          <strong>Distribuição de foco por área</strong>
+          <div class="pill-list">
+            <span class="pill">Números e Operações</span>
+            <span class="pill">Álgebra e Funções</span>
+            <span class="pill">Geometria</span>
+            <span class="pill">Grandezas e Medidas</span>
+            <span class="pill">Probabilidade e Estatística</span>
+          </div>
+        </div>
+        <div class="bar-group">
+          <div>
+            <div class="bar-label"><span>Números e Operações / Álgebra e Funções</span><span>40%</span></div>
+            <div class="bar"><span style="width: 40%;"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Geometria — Espaço e Forma</span><span>22%</span></div>
+            <div class="bar"><span style="width: 22%; background: linear-gradient(90deg, #2b6bcc, #5ab0ff);"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Grandezas e Medidas</span><span>15%</span></div>
+            <div class="bar"><span style="width: 15%; background: linear-gradient(90deg, #0f2f6a, #06b6d4);"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Probabilidade e Estatística</span><span>15%</span></div>
+            <div class="bar"><span style="width: 15%; background: linear-gradient(90deg, #203a63, #3a7bd5);"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Habilidade inicial de validação</h3>
+          <p>
+            Equações do 1º grau, expressões algébricas, proporcionalidade, análise de padrões e resolução de problemas
+            contextualizados servem para validar aprendizado, engajamento e repetição de uso.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Expansão planejada</h3>
+          <p>
+            Depois da validação inicial, a plataforma amplia trilhas para sistemas lineares, funções, geometria,
+            medidas e tópicos de estatística, criando novas entregas para investidores e parceiros.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="escalas">
+      <h2>◉ Escalas de proficiência SAEB</h2>
+      <p class="lead">
+        O painel de escalas mostra a progressão do aluno por nível, reforçando a capacidade do produto de gerar
+        mensuração, relatórios e inteligência educacional com valor para a operação e para os investidores.
+      </p>
+
+      <div class="levels grid four">
+        <div class="level">
+          <div class="level-top">
+            <span class="level-icon">◔</span>
+            <span class="badge bronze">N1</span>
+          </div>
+          <span class="level-range">300-325</span>
+          <h3>Base inicial</h3>
+          <p>Reconhece informações básicas em contextos diretos e resolve tarefas elementares de operação.</p>
+        </div>
+        <div class="level">
+          <div class="level-top">
+            <span class="level-icon">◑</span>
+            <span class="badge prata">N2</span>
+          </div>
+          <span class="level-range">325-350</span>
+          <h3>Raciocínio estruturado</h3>
+          <p>Relaciona representações, identifica padrões simples e aplica procedimentos com apoio moderado.</p>
+        </div>
+        <div class="level">
+          <div class="level-top">
+            <span class="level-icon">◕</span>
+            <span class="badge ouro">N3</span>
+          </div>
+          <span class="level-range">350-375</span>
+          <h3>Domínio intermediário</h3>
+          <p>Resolve problemas com múltiplas etapas, usa estratégias mais autônomas e interpreta enunciados maiores.</p>
+        </div>
+        <div class="level">
+          <div class="level-top">
+            <span class="level-icon">◉</span>
+            <span class="badge diamante">N4</span>
+          </div>
+          <span class="level-range">375-400+</span>
+          <h3>Trilha avançada</h3>
+          <p>Generaliza relações, compara estratégias e lida com contextos mais complexos de álgebra e geometria.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gamificacao">
+      <h2>✦ Sistema de gamificação</h2>
+      <p class="lead">
+        A gamificação é um mecanismo de retenção e recorrência: reforça hábito, amplia engajamento e ajuda a reduzir
+        abandono, criando melhores indicadores para o negócio e para a aprendizagem.
+      </p>
+
+      <div class="grid four" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Bronze</h3>
+          <p>Entrada de ciclo com desafios iniciais e proteção contra frustração excessiva.</p>
+        </div>
+        <div class="card">
+          <h3>Prata</h3>
+          <p>Desbloqueia rotina consistente, progresso semanal e missões mais densas.</p>
+        </div>
+        <div class="card">
+          <h3>Ouro</h3>
+          <p>Reconhece domínio crescente, sequência de acertos e participação forte.</p>
+        </div>
+        <div class="card">
+          <h3>Diamante</h3>
+          <p>Marca alto desempenho com missões especiais, revisão estratégica e destaque na turma.</p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Loops de engajamento</h3>
+          <p>
+            Notificação push, desafio diário, XP acumulado, posição no ranking, subida de liga e celebração de conquista
+            ajudam a sustentar o uso recorrente.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Eventos e badges</h3>
+          <p>
+            Conquistas, eventos temporários e selos de desempenho alimentam a percepção de progresso e aumentam a retenção da base ativa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ia">
+      <h2>◌ Inteligência artificial pedagógica</h2>
+      <p class="lead">
+        A IA atua como diferencial competitivo e técnico, sugerindo intervenções, adaptando o conteúdo e apoiando a
+        criação de um ativo tecnológico que fortalece a tese de investimento.
+      </p>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Tutor IA</h3>
+          <p>
+            Modelo conversacional para orientar o aluno passo a passo, com linguagem adequada à faixa etária e foco em
+            resolução progressiva, ampliando a percepção de valor do produto.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Motor de adaptatividade</h3>
+          <p>
+            Seleciona o próximo item com base em desempenho, histórico, dificuldade e necessidade de reforço para a
+            habilidade trabalhada, sustentando personalização em escala.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Processo pedagógico</h3>
+          <p>
+            Análise da resposta, classificação do erro, escolha da estratégia de apoio e geração da intervenção
+            adequada ao contexto do estudante.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Métricas monitoradas</h3>
+          <p>
+            Taxa de acerto, tempo por item, evolução por nível, recorrência de erros e engajamento ao longo das trilhas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tecnologia">
+      <h2>▦ Arquitetura técnica</h2>
+      <p class="lead">
+        A estrutura foi organizada para suportar o MVP e a expansão gradual, com frontend, backend, IA, base de dados e
+        segurança pensados como blocos independentes e apresentáveis a investidores.
+      </p>
+
+      <div class="architecture">
+        <div class="stack">
+          <div class="stack-item"><strong>Frontend</strong><span>Interface responsiva em web, com componentes reutilizáveis e foco em leitura rápida.</span></div>
+          <div class="stack-item"><strong>Backend</strong><span>Cadastro, autenticação, correção de respostas, registro de progresso e regras de negócio.</span></div>
+          <div class="stack-item"><strong>IA e motor adaptativo</strong><span>Classificação de habilidade, sugestão de próxima questão e apoio pedagógico contextual.</span></div>
+          <div class="stack-item"><strong>Banco de dados</strong><span>Usuários, habilidades, questões, respostas, evolução, badges e trilhas.</span></div>
+        </div>
+        <div class="notes">
+          <div class="note">
+            <h4>Base de dados principal</h4>
+            <p>Estruturada para alunos, turmas, conteúdos, respostas, indicadores e logs de evolução.</p>
+          </div>
+          <div class="note">
+            <h4>Segurança e privacidade</h4>
+            <p>Controle de acesso, criptografia em trânsito, registros mínimos e retenção conforme necessidade educacional.</p>
+          </div>
+          <div class="note">
+            <h4>Escala progressiva</h4>
+            <p>Ambiente inicial simples, com expansão de servidores, monitoramento e backup conforme o uso cresce.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cronograma">
+      <h2>◷ Cronograma de implementação</h2>
+      <p class="lead">
+        A entrega foi desenhada em fases, começando com validação de um único tópico do 9º ano e avançando conforme os
+        testes comprovam valor pedagógico, aderência e potencial de escala.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>MVP</h3>
+          <p>Um tópico, um grupo piloto e primeiros indicadores de uso para validar a tese.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Ajuste</h3>
+          <p>Refino pedagógico, ajustes de interface, feedback e melhoria de retenção.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Expansão</h3>
+          <p>Novos módulos do 9º ano e fortalecimento do motor adaptativo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Escala</h3>
+          <p>Ampliação para outros anos e abertura de novas frentes comerciais e institucionais.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="retorno">
+      <h2>⬈ Potencial de retorno</h2>
+      <p class="lead">
+        O retorno do projeto é construído em três camadas: impacto educacional mensurável, ativo tecnológico com valor
+        de mercado e potencial de monetização por licenciamento, contratos e parcerias.
+      </p>
+
+      <div class="grid three" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Impacto</h3>
+          <p>Melhora de aprendizagem, retenção e acompanhamento pedagógico com dados.</p>
+        </div>
+        <div class="card">
+          <h3>Receita</h3>
+          <p>Modelo escalável para licenças, projetos com redes e contratos institucionais.</p>
+        </div>
+        <div class="card">
+          <h3>Valor estratégico</h3>
+          <p>Ativo de inovação com narrativa aderente à Lei do Bem e a teses de investimento em edtech.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-grid">
+        <div>
+          <h2>Pronta para captação, validação e escala.</h2>
+          <p>
+            A landing page comunica o conceito central do projeto como tese de inovação: validar um único caminho do
+            9º ano, comprovar tração inicial e depois expandir módulos, escalas e automações com base em testes reais.
+          </p>
+        </div>
+        <div>
+          <a class="button primary" href="#hero-title">Voltar ao topo</a>
+          <a class="button" href="#investimento">Ver tese de captação</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Math Heroes — Plataforma adaptativa de Matemática SAEB.
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const menu = document.querySelector('.floating-menu');
+      if (!menu) return;
+
+      const indicator = menu.querySelector('.menu-indicator');
+      const toggleButton = menu.querySelector('.menu-toggle');
+      const links = Array.from(menu.querySelectorAll('a.tab[href^="#"]'));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      const setToggleState = (isOpen) => {
+        if (!toggleButton) return;
+        toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggleButton.textContent = isOpen ? 'Fechar' : 'Menu';
+      };
+
+      const closeMobileMenu = () => {
+        if (window.innerWidth > 760) return;
+        menu.classList.remove('open');
+        setToggleState(false);
+      };
+
+      if (toggleButton) {
+        setToggleState(false);
+        toggleButton.addEventListener('click', () => {
+          const willOpen = !menu.classList.contains('open');
+          menu.classList.toggle('open', willOpen);
+          setToggleState(willOpen);
+        });
+      }
+
+      const updateIndicator = (activeLink) => {
+        if (!indicator || !activeLink) return;
+        const menuRect = menu.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
+
+        indicator.style.left = `${linkRect.left - menuRect.left}px`;
+        indicator.style.width = `${linkRect.width}px`;
+        indicator.style.opacity = '1';
+      };
+
+      const setActive = (id) => {
+        let activeLink = null;
+        links.forEach((link) => {
+          const isActive = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('active', isActive);
+          link.setAttribute('aria-current', isActive ? 'true' : 'false');
+          if (isActive) activeLink = link;
+        });
+
+        updateIndicator(activeLink);
+      };
+
+      links.forEach((link) => {
+        link.addEventListener('click', () => {
+          const targetId = link.getAttribute('href').slice(1);
+          setActive(targetId);
+          closeMobileMenu();
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+          if (visible.length > 0) {
+            setActive(visible[0].target.id);
+          }
+        },
+        {
+          rootMargin: '-35% 0px -45% 0px',
+          threshold: [0.2, 0.35, 0.5, 0.75],
+        }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+
+      const initialSection =
+        sections.find((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.2;
+        }) || sections[0];
+
+      if (initialSection) {
+        setActive(initialSection.id);
+      }
+
+      window.addEventListener('resize', () => {
+        const activeLink = links.find((link) => link.classList.contains('active'));
+        updateIndicator(activeLink);
+        if (window.innerWidth > 760) {
+          menu.classList.remove('open');
+          setToggleState(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
