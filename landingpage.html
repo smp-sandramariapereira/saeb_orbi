@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Heroes - Plataforma Adaptativa SAEB</title>
+  <meta
+    name="description"
+    content="Landing page institucional da Math Heroes para captação de recursos, tese de investimento e desenvolvimento da plataforma com apoio da Lei do Bem."
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap');
+
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --text: #0f172a;
+      --muted: #51607a;
+      --line: #d7e0ea;
+      --accent: #1e88a8;
+      --accent-strong: #135e7a;
+      --accent-2: #0d9488;
+      --accent-3: #d97706;
+      --shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
+      --radius: 22px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(30, 136, 168, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(13, 148, 136, 0.10), transparent 28%),
+        linear-gradient(180deg, #f8fbfe 0%, #eef4f9 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 20px 0 60px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #0f4e73 0%, #1b7aa1 48%, #0f766e 100%);
+      color: #fff;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      min-height: 320px;
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(0px);
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    .hero::before {
+      width: 280px;
+      height: 280px;
+      right: -80px;
+      top: -70px;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.32), transparent 62%);
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      left: -60px;
+      bottom: -80px;
+      background: radial-gradient(circle at center, rgba(253, 186, 116, 0.30), transparent 62%);
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-copy {
+      margin-top: 34px;
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2.2rem, 4vw, 4.3rem);
+      line-height: 0.97;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+
+    .hero p {
+      max-width: 62ch;
+      margin: 18px 0 0;
+      font-size: 1.03rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.10);
+      color: #fff;
+      font-weight: 700;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #f8b84e 0%, #f59e0b 100%);
+      color: #102033;
+      border-color: transparent;
+      box-shadow: 0 12px 28px rgba(245, 158, 11, 0.35);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    .metric strong {
+      display: block;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.92rem;
+      line-height: 1.35;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 18px;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+      transition: border-color 180ms ease, transform 180ms ease;
+    }
+
+    .tab:hover {
+      transform: translateY(-1px);
+      border-color: #8cbcd3;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(215, 224, 234, 0.8);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section p.lead {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 80ch;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.03rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .curriculum {
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .curriculum-header {
+      padding: 18px;
+      background: linear-gradient(180deg, #f8fbfe 0%, #eef5fa 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .bar-group {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      background: var(--surface);
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1.5fr 0.6fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .bar-label {
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #e7eef5;
+      overflow: hidden;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f4f8fb;
+      border: 1px solid var(--line);
+      color: #1d3a4a;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .levels {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .level {
+      display: grid;
+      grid-template-columns: 110px 100px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%);
+    }
+
+    .badge {
+      width: fit-content;
+      min-width: 72px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      text-align: center;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 0.83rem;
+    }
+
+    .bronze { background: linear-gradient(135deg, #b87333, #d7a15b); }
+    .prata { background: linear-gradient(135deg, #9099a8, #c8d0dc); color: #132134; }
+    .ouro { background: linear-gradient(135deg, #d49b1d, #f3c94d); color: #1d2404; }
+    .diamante { background: linear-gradient(135deg, #6d4cff, #b39bff); }
+    .elite { background: linear-gradient(135deg, #0f4e73, #1b7aa1); }
+
+    .level p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 18px;
+    }
+
+    .step {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-weight: 800;
+      background: #e6f2f8;
+      color: #15465d;
+    }
+
+    .architecture {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.15fr 0.85fr;
+      margin-top: 18px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stack-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f7fafc 100%);
+    }
+
+    .stack-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stack-item span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.96rem;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+    }
+
+    .note {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff8e7 0%, #fffdf7 100%);
+      border: 1px solid #f4ddb0;
+    }
+
+    .note h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .note p {
+      margin: 0;
+      color: #6b5530;
+      line-height: 1.6;
+    }
+
+    .cta {
+      margin-top: 18px;
+      border-radius: 26px;
+      padding: 26px;
+      color: #fff;
+      background: linear-gradient(135deg, #0f4e73 0%, #1b7aa1 58%, #0f766e 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      margin: 0;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.6rem, 2vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    .cta p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+    }
+
+    .cta .button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      padding: 18px 0 8px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-meta,
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .architecture,
+      .cta-grid,
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .level {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 18px, var(--max));
+        padding-top: 10px;
+      }
+
+      .hero {
+        padding: 20px;
+        min-height: auto;
+        border-radius: 24px;
+      }
+
+      .hero-meta,
+      .grid.two,
+      .grid.three,
+      .grid.four,
+      .architecture,
+      .cta-grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        line-height: 1.02;
+      }
+
+      .section,
+      .cta {
+        padding: 18px;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="brand-mark">⚡</div>
+          <div>
+            Math Heroes
+            <div style="font-size: 0.92rem; font-weight: 600; opacity: 0.88; margin-top: 2px;">Tese de inovação educacional para captação e escala</div>
+          </div>
+        </div>
+        <a class="button" href="#investimento">Ver tese de investimento</a>
+      </div>
+
+      <div class="hero-copy">
+        <div class="eyebrow">Lei do Bem • captação de recursos • inovação em educação • SAEB / INEP</div>
+        <h1 id="hero-title">Uma plataforma de inovação educacional pronta para captar recursos e escalar.</h1>
+        <p>
+          O projeto foi estruturado como uma tese de desenvolvimento gradual para investidores, considerando incentivos
+          da Lei do Bem, validação pedagógica e expansão por módulos a partir de um tópico inicial do 9º ano.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#investimento">Conhecer a tese</a>
+          <a class="button" href="#cronograma">Ver cronograma</a>
+          <a class="button" href="#retorno">Ver potencial de retorno</a>
+        </div>
+      </div>
+
+      <div class="hero-meta" aria-label="Resumo da plataforma">
+        <div class="metric"><strong>9º</strong><span>ano como ponto de partida para validar o MVP</span></div>
+        <div class="metric"><strong>Lei do Bem</strong><span>base para enquadramento em inovação e incentivo fiscal</span></div>
+        <div class="metric"><strong>Investidor</strong><span>perfil-alvo: apoiador estratégico e de crescimento</span></div>
+        <div class="metric"><strong>Escala</strong><span>expansão por módulos após testes e validação</span></div>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Navegação de seções">
+      <a class="tab" href="#visao">Visão Geral</a>
+      <a class="tab" href="#investimento">Tese de Investimento</a>
+      <a class="tab" href="#conteudo">Conteúdo SAEB</a>
+      <a class="tab" href="#escalas">Escalas</a>
+      <a class="tab" href="#gamificacao">Gamificação</a>
+      <a class="tab" href="#ia">IA Pedagógica</a>
+      <a class="tab" href="#tecnologia">Tecnologia</a>
+      <a class="tab" href="#cronograma">Cronograma</a>
+      <a class="tab" href="#retorno">Retorno</a>
+    </nav>
+
+    <section class="section" id="visao">
+      <h2>Visão geral da tese</h2>
+      <p class="lead">
+        A proposta é estruturar uma plataforma de aprendizagem adaptativa como ativo de inovação educacional,
+        combinando conteúdo curricular, diagnóstico, recomendação adaptativa e feedback pedagógico em uma jornada
+        capaz de gerar valor educacional, tecnológico e econômico.
+      </p>
+
+      <div class="grid three" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Captação estruturada</h3>
+          <p>O projeto foi organizado para comunicação com investidores, parceiros e mecanismos de incentivo à inovação.</p>
+        </div>
+        <div class="card">
+          <h3>Lei do Bem</h3>
+          <p>A base técnica pode ser apresentada como desenvolvimento de inovação aplicável, com potencial de enquadramento em incentivos fiscais.</p>
+        </div>
+        <div class="card">
+          <h3>Escala orientada por dados</h3>
+          <p>As próximas fases crescem com base em evidências de uso, retenção, impacto pedagógico e abertura de novos módulos.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="investimento">
+      <h2>Tese de investimento</h2>
+      <p class="lead">
+        O projeto parte de um produto educacional com potencial de escalabilidade, apoiado por tecnologia própria,
+        validação pedagógica e uma narrativa clara para investidores interessados em impacto, inovação e mercado B2B/B2G.
+      </p>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Problema que resolve</h3>
+          <p>Baixa personalização do ensino, dificuldade de diagnóstico contínuo e necessidade de maior eficiência na aprendizagem matemática.</p>
+        </div>
+        <div class="card">
+          <h3>Oportunidade de mercado</h3>
+          <p>Escolas, redes privadas, iniciativas públicas, edtechs e parceiros institucionais buscam soluções com evidência pedagógica e escala tecnológica.</p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Ativo de inovação</h3>
+          <p>Motor adaptativo, IA pedagógica, banco inteligente de itens e analytics compõem um núcleo tecnológico com valor de desenvolvimento contínuo.</p>
+        </div>
+        <div class="card">
+          <h3>Modelo de crescimento</h3>
+          <p>Começa com um módulo validado, amplia para novas habilidades, expande anos escolares e abre caminho para parcerias e licenciamento.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="conteudo">
+      <h2>Base curricular — Matemática 9º ano</h2>
+      <p class="lead">
+        O primeiro bloco curricular é o ponto de partida da validação comercial e pedagógica. Ele reduz risco, gera
+        evidência de uso e demonstra a capacidade da plataforma de entregar valor desde o MVP.
+      </p>
+
+      <div class="curriculum">
+        <div class="curriculum-header">
+          <strong>Distribuição de foco por área</strong>
+          <div class="pill-list">
+            <span class="pill">Números e Operações</span>
+            <span class="pill">Álgebra e Funções</span>
+            <span class="pill">Geometria</span>
+            <span class="pill">Grandezas e Medidas</span>
+            <span class="pill">Probabilidade e Estatística</span>
+          </div>
+        </div>
+        <div class="bar-group">
+          <div>
+            <div class="bar-label"><span>Números e Operações / Álgebra e Funções</span><span>40%</span></div>
+            <div class="bar"><span style="width: 40%;"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Geometria — Espaço e Forma</span><span>22%</span></div>
+            <div class="bar"><span style="width: 22%; background: linear-gradient(90deg, #0d9488, #34d399);"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Grandezas e Medidas</span><span>15%</span></div>
+            <div class="bar"><span style="width: 15%; background: linear-gradient(90deg, #d97706, #f59e0b);"></span></div>
+          </div>
+          <div>
+            <div class="bar-label"><span>Probabilidade e Estatística</span><span>15%</span></div>
+            <div class="bar"><span style="width: 15%; background: linear-gradient(90deg, #7c3aed, #a78bfa);"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Habilidade inicial de validação</h3>
+          <p>
+            Equações do 1º grau, expressões algébricas, proporcionalidade, análise de padrões e resolução de problemas
+            contextualizados servem para validar aprendizado, engajamento e repetição de uso.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Expansão planejada</h3>
+          <p>
+            Depois da validação inicial, a plataforma amplia trilhas para sistemas lineares, funções, geometria,
+            medidas e tópicos de estatística, criando novas entregas para investidores e parceiros.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="escalas">
+      <h2>Escalas de proficiência SAEB</h2>
+      <p class="lead">
+        O painel de escalas mostra a progressão do aluno por nível, reforçando a capacidade do produto de gerar
+        mensuração, relatórios e inteligência educacional com valor para a operação e para os investidores.
+      </p>
+
+      <div class="levels">
+        <div class="level">
+          <div class="badge bronze">N1</div>
+          <div><strong>300-325</strong><p>Reconhece informações básicas em contextos diretos e resolve tarefas elementares de operação.</p></div>
+          <p>Base inicial de consolidação.</p>
+        </div>
+        <div class="level">
+          <div class="badge prata">N2</div>
+          <div><strong>325-350</strong><p>Relaciona representações, identifica padrões simples e aplica procedimentos com apoio moderado.</p></div>
+          <p>Entrada em raciocínio estruturado.</p>
+        </div>
+        <div class="level">
+          <div class="badge ouro">N3</div>
+          <div><strong>350-375</strong><p>Resolve problemas com múltiplas etapas, usa estratégias mais autônomas e interpreta enunciados maiores.</p></div>
+          <p>Domínio intermediário esperado.</p>
+        </div>
+        <div class="level">
+          <div class="badge diamante">N4</div>
+          <div><strong>375-400+</strong><p>Generaliza relações, compara estratégias e lida com contextos mais complexos de álgebra e geometria.</p></div>
+          <p>Trilha avançada e ampliação.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gamificacao">
+      <h2>Sistema de gamificação</h2>
+      <p class="lead">
+        A gamificação é um mecanismo de retenção e recorrência: reforça hábito, amplia engajamento e ajuda a reduzir
+        abandono, criando melhores indicadores para o negócio e para a aprendizagem.
+      </p>
+
+      <div class="grid four" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Bronze</h3>
+          <p>Entrada de ciclo com desafios iniciais e proteção contra frustração excessiva.</p>
+        </div>
+        <div class="card">
+          <h3>Prata</h3>
+          <p>Desbloqueia rotina consistente, progresso semanal e missões mais densas.</p>
+        </div>
+        <div class="card">
+          <h3>Ouro</h3>
+          <p>Reconhece domínio crescente, sequência de acertos e participação forte.</p>
+        </div>
+        <div class="card">
+          <h3>Diamante</h3>
+          <p>Marca alto desempenho com missões especiais, revisão estratégica e destaque na turma.</p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Loops de engajamento</h3>
+          <p>
+            Notificação push, desafio diário, XP acumulado, posição no ranking, subida de liga e celebração de conquista
+            ajudam a sustentar o uso recorrente.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Eventos e badges</h3>
+          <p>
+            Conquistas, eventos temporários e selos de desempenho alimentam a percepção de progresso e aumentam a retenção da base ativa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ia">
+      <h2>Inteligência artificial pedagógica</h2>
+      <p class="lead">
+        A IA atua como diferencial competitivo e técnico, sugerindo intervenções, adaptando o conteúdo e apoiando a
+        criação de um ativo tecnológico que fortalece a tese de investimento.
+      </p>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Tutor IA</h3>
+          <p>
+            Modelo conversacional para orientar o aluno passo a passo, com linguagem adequada à faixa etária e foco em
+            resolução progressiva, ampliando a percepção de valor do produto.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Motor de adaptatividade</h3>
+          <p>
+            Seleciona o próximo item com base em desempenho, histórico, dificuldade e necessidade de reforço para a
+            habilidade trabalhada, sustentando personalização em escala.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Processo pedagógico</h3>
+          <p>
+            Análise da resposta, classificação do erro, escolha da estratégia de apoio e geração da intervenção
+            adequada ao contexto do estudante.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Métricas monitoradas</h3>
+          <p>
+            Taxa de acerto, tempo por item, evolução por nível, recorrência de erros e engajamento ao longo das trilhas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tecnologia">
+      <h2>Arquitetura técnica</h2>
+      <p class="lead">
+        A estrutura foi organizada para suportar o MVP e a expansão gradual, com frontend, backend, IA, base de dados e
+        segurança pensados como blocos independentes e apresentáveis a investidores.
+      </p>
+
+      <div class="architecture">
+        <div class="stack">
+          <div class="stack-item"><strong>Frontend</strong><span>Interface responsiva em web, com componentes reutilizáveis e foco em leitura rápida.</span></div>
+          <div class="stack-item"><strong>Backend</strong><span>Cadastro, autenticação, correção de respostas, registro de progresso e regras de negócio.</span></div>
+          <div class="stack-item"><strong>IA e motor adaptativo</strong><span>Classificação de habilidade, sugestão de próxima questão e apoio pedagógico contextual.</span></div>
+          <div class="stack-item"><strong>Banco de dados</strong><span>Usuários, habilidades, questões, respostas, evolução, badges e trilhas.</span></div>
+        </div>
+        <div class="notes">
+          <div class="note">
+            <h4>Base de dados principal</h4>
+            <p>Estruturada para alunos, turmas, conteúdos, respostas, indicadores e logs de evolução.</p>
+          </div>
+          <div class="note">
+            <h4>Segurança e privacidade</h4>
+            <p>Controle de acesso, criptografia em trânsito, registros mínimos e retenção conforme necessidade educacional.</p>
+          </div>
+          <div class="note">
+            <h4>Escala progressiva</h4>
+            <p>Ambiente inicial simples, com expansão de servidores, monitoramento e backup conforme o uso cresce.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cronograma">
+      <h2>Cronograma de implementação</h2>
+      <p class="lead">
+        A entrega foi desenhada em fases, começando com validação de um único tópico do 9º ano e avançando conforme os
+        testes comprovam valor pedagógico, aderência e potencial de escala.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>MVP</h3>
+          <p>Um tópico, um grupo piloto e primeiros indicadores de uso para validar a tese.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Ajuste</h3>
+          <p>Refino pedagógico, ajustes de interface, feedback e melhoria de retenção.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Expansão</h3>
+          <p>Novos módulos do 9º ano e fortalecimento do motor adaptativo.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Escala</h3>
+          <p>Ampliação para outros anos e abertura de novas frentes comerciais e institucionais.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="retorno">
+      <h2>Potencial de retorno</h2>
+      <p class="lead">
+        O retorno do projeto é construído em três camadas: impacto educacional mensurável, ativo tecnológico com valor
+        de mercado e potencial de monetização por licenciamento, contratos e parcerias.
+      </p>
+
+      <div class="grid three" style="margin-top: 18px;">
+        <div class="card">
+          <h3>Impacto</h3>
+          <p>Melhora de aprendizagem, retenção e acompanhamento pedagógico com dados.</p>
+        </div>
+        <div class="card">
+          <h3>Receita</h3>
+          <p>Modelo escalável para licenças, projetos com redes e contratos institucionais.</p>
+        </div>
+        <div class="card">
+          <h3>Valor estratégico</h3>
+          <p>Ativo de inovação com narrativa aderente à Lei do Bem e a teses de investimento em edtech.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-grid">
+        <div>
+          <h2>Pronta para captação, validação e escala.</h2>
+          <p>
+            A landing page comunica o conceito central do projeto como tese de inovação: validar um único caminho do
+            9º ano, comprovar tração inicial e depois expandir módulos, escalas e automações com base em testes reais.
+          </p>
+        </div>
+        <div>
+          <a class="button primary" href="#hero-title">Voltar ao topo</a>
+          <a class="button" href="#investimento">Ver tese de captação</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Math Heroes — Plataforma adaptativa de Matemática SAEB.
+    </footer>
+  </main>
+</body>
+</html>
